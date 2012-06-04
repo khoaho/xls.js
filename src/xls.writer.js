@@ -26,38 +26,37 @@
 
 var XlsWriter = function () {
 	"use strict";
-	var xmlns = "urn:schemas-microsoft-com:office:spreadsheet";
-	var xmlns_o = "urn:schemas-microsoft-com:office:office";
-	var xmlns_x = "urn:schemas-microsoft-com:office:excel";
-	var xmlns_ss = "urn:schemas-microsoft-com:office:spreadsheet";
-	var xmlns_html = "http://www.w3.org/TR/REC-html40";
-
-	var _document;
-	var _documentProperties;
-	var _excelWorkbook;
-	var _styles;
-	var _names;
-	var _worksheets;
+	var xmlns = "urn:schemas-microsoft-com:office:spreadsheet",
+		xmlns_o = "urn:schemas-microsoft-com:office:office",
+		xmlns_x = "urn:schemas-microsoft-com:office:excel",
+		xmlns_ss = "urn:schemas-microsoft-com:office:spreadsheet",
+		xmlns_html = "http://www.w3.org/TR/REC-html40",
+		_document,
+		_documentProperties,
+		_excelWorkbook,
+		_styles,
+		_names,
+		_worksheets;
 
 	function getDocumentProperties() {
-		var element = _document.createElementNS(xmlns_o, "DocumentProperties");
-		var attributes = getAttribute('Author', _documentProperties.Author)
-			+ getAttribute('LastAuthor', _documentProperties.LastAuthor)
-			+ getAttribute('Created', _documentProperties.Created)
-			+ getAttribute('Company', _documentProperties.Company)
-			+ getAttribute('Version', _documentProperties.Version);
+		var element = _document.createElementNS(xmlns_o, "DocumentProperties"),
+			attributes = getAttribute('Author', _documentProperties.Author)
+				+ getAttribute('LastAuthor', _documentProperties.LastAuthor)
+				+ getAttribute('Created', _documentProperties.Created)
+				+ getAttribute('Company', _documentProperties.Company)
+				+ getAttribute('Version', _documentProperties.Version);
 		element.innerHTML = attributes;
 		return element;
 	}
 
 	function getExcelWorkbook() {
-		var element = _document.createElementNS(xmlns_x, "ExcelWorkbook");
-		var attributes = getAttribute('WindowHeight', _excelWorkbook.WindowHeight)
-			+ getAttribute('WindowWidth', _excelWorkbook.WindowWidth)
-			+ getAttribute('WindowTopX', _excelWorkbook.WindowTopX)
-			+ getAttribute('WindowTopY', _excelWorkbook.WindowTopY)
-			+ getAttribute('ProtectStructure', _excelWorkbook.IsProtectStructure)
-			+ getAttribute('ProtectWindows', _excelWorkbook.IsProtectWindows);
+		var element = _document.createElementNS(xmlns_x, "ExcelWorkbook"),
+			attributes = getAttribute('WindowHeight', _excelWorkbook.WindowHeight)
+				+ getAttribute('WindowWidth', _excelWorkbook.WindowWidth)
+				+ getAttribute('WindowTopX', _excelWorkbook.WindowTopX)
+				+ getAttribute('WindowTopY', _excelWorkbook.WindowTopY)
+				+ getAttribute('ProtectStructure', _excelWorkbook.IsProtectStructure)
+				+ getAttribute('ProtectWindows', _excelWorkbook.IsProtectWindows);
 		element.innerHTML = attributes;
 		return element;
 	}
@@ -72,26 +71,28 @@ var XlsWriter = function () {
 	}
 
 	function getStyle(style) {
-		var element = _document.createElement('Style');
+		var element, alignment, borders, font, interior, numberFormat, protection;
+
+		element = _document.createElement('Style');
 		element.setAttribute('ss:ID', 'Default');
 		element.setAttribute('ss:Name', 'Normal');
 
-		var alignment = _document.createElement('Alignment');
+		alignment = _document.createElement('Alignment');
 		alignment.setAttribute('ss:Vertical', style.Alignment.Vertical);
 
-		var borders = _document.createElement('Borders');
+		borders = _document.createElement('Borders');
 		borders.setAttribute('', style.Borders);
 
-		var font = _document.createElement('Font');
+		font = _document.createElement('Font');
 		font.setAttribute('ss:FontName', style.Font.Name);
 
-		var interior = _document.createElement('Interior');
+		interior = _document.createElement('Interior');
 		interior.setAttribute('', style.Interior);
 
-		var numberFormat = _document.createElement('NumberFormat');
+		numberFormat = _document.createElement('NumberFormat');
 		numberFormat.setAttribute('', style.NumberFormat);
 
-		var protection = _document.createElement('Protection');
+		protection = _document.createElement('Protection');
 		protection.setAttribute('', style.Protection);
 
 		element.appendChild(alignment);
@@ -104,47 +105,53 @@ var XlsWriter = function () {
 	}
 
 	function getNames() {
-		var element = _document.createElement('Names');
-		for (var key in _names) {
+		var element = _document.createElement('Names'),
+			key;
+		for (key in _names) {
 			element.appendChild(getName(_names[key]));
 		}
 		return element;
 	}
 
 	function getName(name) {
-		var element = _document.createElement('NamedRange');
+		var element, refersTo;
+		element = _document.createElement('NamedRange');
 		element.setAttribute('ss:Name', name.CellName);
-		var refersTo = "='" + name.SheetName + "'!" + name.CellAddress;
+		refersTo = "='" + name.SheetName + "'!" + name.CellAddress;
 		element.setAttribute('ss:RefersTo', refersTo);
 		return element;
 	}
 
 	function getWorksheets() {
-		for (var key in _worksheets) {
-			var worksheet = _worksheets[key];
-			var element = _document.createElement('Worksheet');
+		var worksheet, element, table, column, row, cellObj, cell, data,
+			worksheetOptions, selected, protectObjects, protectScenarios,
+			key, i, j;
+
+		for (key in _worksheets) {
+			worksheet = _worksheets[key];
+			element = _document.createElement('Worksheet');
 			element.setAttribute('ss:Name', worksheet.Name);
 
-			var table = _document.createElement('Table');
+			table = _document.createElement('Table');
 			table.setAttribute('ID', worksheet.ID);
 			table.setAttribute('ss:ExpandedColumnCount', worksheet.Columns.Count);
 			table.setAttribute('ss:ExpandedRowCount', worksheet.Rows.Count);
 			table.setAttribute('ss:FullColumns', worksheet.FullColumns);
 			table.setAttribute('ss:FullRows', worksheet.FullRows);
 
-			for (var i in worksheet.Columns.Count) {
-				var column = _document.createElement('Column');
+			for (i in worksheet.Columns.Count) {
+				column = _document.createElement('Column');
 				column.setAttribute('ss:Width', worksheet.Columns[i].Width);
 				table.appendChild(column);
 			}
 
-			for (var j in worksheet.Rows.Count) {
-				var row = _document.createElement('Row');
-				for (var k in worksheet.Columns.Count) {
-					var cellObj = worksheet.Cell[j, k];
-					var cell = _document.createElement('Cell');
+			for (j in worksheet.Rows.Count) {
+				row = _document.createElement('Row');
+				for (i in worksheet.Columns.Count) {
+					cellObj = worksheet.Cell[j, i];
+					cell = _document.createElement('Cell');
 
-					var data = _document.createElement('Data');
+					data = _document.createElement('Data');
 					data.setAttribute('ss:Type', cellObj.Type);
 					data.innerHTML = cellObj.Value;
 					cell.appendChild(data);
@@ -162,11 +169,11 @@ var XlsWriter = function () {
 
 			worksheet.appendChild(table);
 
-			var worksheetOptions = _document.createElementNS(xmlns_x, 'WorksheetOptions');
-			var selected = _document.createElement('Selected');
-			var protectObjects = _document.createElement('ProtectObjects');
+			worksheetOptions = _document.createElementNS(xmlns_x, 'WorksheetOptions');
+			selected = _document.createElement('Selected');
+			protectObjects = _document.createElement('ProtectObjects');
 			protectObjects.innerHTML = worksheet.IsProtectObjects;
-			var protectScenarios = _document.createElement('ProtectScenarios');
+			protectScenarios = _document.createElement('ProtectScenarios');
 			protectScenarios.innerHTML = worksheet.IsProtectScenarios;
 
 			worksheetOptions.appendChild(selected);

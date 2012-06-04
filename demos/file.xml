@@ -1,0 +1,124 @@
+﻿<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+	<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+		<Author>Your_name_here</Author>
+		<LastAuthor>khoa.ho</LastAuthor>
+		<Created>2008-06-25T00:00:00Z</Created>
+		<Company>Shell Oil</Company>
+		<Version>12.00</Version>
+	</DocumentProperties>
+	<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+		<WindowHeight>6135</WindowHeight>
+		<WindowWidth>8445</WindowWidth>
+		<WindowTopX>240</WindowTopX>
+		<WindowTopY>120</WindowTopY>
+		<ProtectStructure>False</ProtectStructure>
+		<ProtectWindows>False</ProtectWindows>
+	</ExcelWorkbook>
+	<Styles>
+		<Style ss:ID="Default" ss:Name="Normal">
+			<Alignment ss:Vertical="Bottom"/>
+			<Borders/>
+			<Font ss:FontName="Arial"/>
+			<Interior/>
+			<NumberFormat/>
+			<Protection/>
+		</Style>
+	</Styles>
+	<Names>
+		<NamedRange ss:Name="_Number" ss:RefersTo="='Sample Sheet 1'!R1C1"/>
+	</Names>
+	<Worksheet ss:Name="Sample Sheet 1">
+		<Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="4" x:FullColumns="1"
+		       x:FullRows="1" ID="Table1">
+			<Column ss:Width="150"/>
+			<Column ss:Width="200.25"/>
+			<Row>
+				<Cell>
+					<Data ss:Type="Number">1</Data>
+					<NamedCell ss:Name="_Number"/>
+				</Cell>
+				<Cell>
+					<Data ss:Type="Number">2</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell>
+					<Data ss:Type="Number">3</Data>
+				</Cell>
+				<Cell>
+					<Data ss:Type="Number">4</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell>
+					<Data ss:Type="Number">5</Data>
+				</Cell>
+				<Cell>
+					<Data ss:Type="Number">6</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell>
+					<Data ss:Type="Number">7</Data>
+				</Cell>
+				<Cell>
+					<Data ss:Type="Number">8</Data>
+				</Cell>
+			</Row>
+		</Table>
+		<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+			<Selected/>
+			<ProtectObjects>False</ProtectObjects>
+			<ProtectScenarios>False</ProtectScenarios>
+		</WorksheetOptions>
+	</Worksheet>
+	<Worksheet ss:Name="Sample Sheet 2">
+		<Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="4" x:FullColumns="1"
+		       x:FullRows="1" ID="Table2">
+			<Column ss:Width="150"/>
+			<Column ss:Width="200.25"/>
+			<Row>
+				<Cell>
+					<Data ss:Type="String">A</Data>
+				</Cell>
+				<Cell>
+					<Data ss:Type="String">B</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell>
+					<Data ss:Type="String">C</Data>
+				</Cell>
+				<Cell>
+					<Data ss:Type="String">D</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell>
+					<Data ss:Type="String">E</Data>
+				</Cell>
+				<Cell>
+					<Data ss:Type="String">F</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell>
+					<Data ss:Type="String">G</Data>
+				</Cell>
+				<Cell>
+					<Data ss:Type="String">H</Data>
+				</Cell>
+			</Row>
+		</Table>
+		<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+			<ProtectObjects>False</ProtectObjects>
+			<ProtectScenarios>False</ProtectScenarios>
+		</WorksheetOptions>
+	</Worksheet>
+</Workbook>
